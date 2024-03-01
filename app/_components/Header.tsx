@@ -1,3 +1,5 @@
+"use client";
+import {RegisterLink, LoginLink} from "@kinde-oss/kinde-auth-nextjs/components";
 import Image from 'next/image'
 import React from 'react'
 
@@ -5,7 +7,7 @@ const Header = () => {
     return (
         <header className="bg-black">
             <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
-                <Image src='/logo.svg' alt='logo'
+                <Image src='https://ik.imagekit.io/rhj1mu8rk/logo.svg' alt='logo'
                     width={100}
                     height={100}
                 />
@@ -44,7 +46,7 @@ const Header = () => {
             text-white transition "
 
                             >
-                                <a href="">Login</a>
+                              <LoginLink postLoginRedirectURL="/dashboard">Login</LoginLink>
                             </div>
 
                             <div
@@ -54,7 +56,7 @@ const Header = () => {
               hover:text-slate-800 sm:block"
 
                             >
-                                <a href="">Register</a>
+                                <RegisterLink>Register</RegisterLink>
                             </div>
                         </div>
 

@@ -12,3 +12,16 @@ Good commit practices :-
     rearrange -> files moved, added, deleted etc
     update -> update code (versions, library compatibility)
 ```
+
+
+
+---
+
+### In Project Resources: 
+
+- Kinde auth docs : https://kinde.com/docs/developer-tools/nextjs-sdk/
+
+
+
+
+
