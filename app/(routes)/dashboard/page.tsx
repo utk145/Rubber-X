@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { api } from '@/convex/_generated/api';
 import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
 import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs/components';
-import { useMutation, useQuery } from 'convex/react';
+import { useConvex, useMutation, useQuery } from 'convex/react';
 import React, { useEffect } from 'react';
 
 const Dashboard = () => {
@@ -11,23 +11,31 @@ const Dashboard = () => {
   // const { user } = useKindeBrowserClient();
   const { user }: any = useKindeBrowserClient(); // fix for the error  in above line: Type 'string | null | undefined' is not assignable to type 'string
 
-  const getUser = useQuery(api.user.getUser, { email: user?.email });
+  // const getUser = useQuery(api.user.getUser, { email: user?.email }); // It works perfectly fine but commented to have an alternative convex query
+
+  const convex = useConvex();
 
   const createUser = useMutation(api.user.createUser);
 
 
+  // https://docs.convex.dev/client/react#one-off-queries
+  const checkUser = async () => {
+    const getUser = await convex.query(api.user.getUser, { email: user?.email });
+    if (!getUser?.length) {
+      createUser({
+        name: user?.given_name,
+        email: user?.email,
+        image: user?.picture
+      }).then((resp) => {
+        console.log(resp);
+      }).catch((err) => { alert(err) })
+    }
+  }
+
   useEffect(() => {
     if (user) {
       // console.log(getUser);
-      if (getUser === undefined) {
-        createUser({
-          name: user?.given_name,
-          email: user?.email,
-          image: user?.picture
-        }).then((resp) => {
-          console.log(resp);
-        }).catch((err) => { alert(err) })
-      }
+      checkUser();
     };
   }, [user])
 
