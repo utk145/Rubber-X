@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { ChevronDown, LogOut, Settings, User, Users } from 'lucide-react';
+import { ChevronDown, LayoutGrid, LogOut, Settings, User, Users } from 'lucide-react';
 import Image from 'next/image';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { LogoutLink, useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
@@ -8,6 +8,7 @@ import { Separator } from '@/components/ui/separator';
 import { useConvex } from 'convex/react';
 import { useRouter } from 'next/navigation';
 import { api } from '@/convex/_generated/api';
+import { Button } from '@/components/ui/button';
 
 
 type TeamList = {
@@ -20,6 +21,7 @@ type TeamList = {
 const SideNavTop = () => {
     // console.log(user);
 
+    // Utils
     const menuOptions = [
         {
             id: 1,
@@ -35,16 +37,22 @@ const SideNavTop = () => {
         }
     ];
 
+
+    // Lib Functions
     const convex = useConvex();
     const router = useRouter();
     const { user }: any = useKindeBrowserClient();
 
-    const [teamList, setTeamList] = useState<TeamList[]>();
+    // States
+    const [teamList, setTeamList] = useState<TeamList[]>(); // teamList is an array of TeamList type
+    const [activeTeam, setActiveTeam] = useState<TeamList>() // activeTeam is a team of type TeamList
+
 
     const getTeamsList = async () => {
         const result = await convex.query(api.teams.getTeam, { email: user?.email });
         setTeamList(result);
-        console.log("Teams result");
+        setActiveTeam(result[0]);
+        console.log("Teams result", result);
     }; /* We've already once done this call earlier, and a common approach is doing prop-drilling to reduce this api call but by the time the teamList is fetched, #this component is already mounted. Soo the list is not shown. *** BETTER APPROACH FOR FUTURE ***: use state management like ContextAPI, Redux-Tookit, Zustand, etc etc etc...   */
 
     console.log("team output from sidenav toppp", teamList);
@@ -66,7 +74,7 @@ const SideNavTop = () => {
                 <PopoverTrigger>
                     <div className='flex items-center gap-3 hover:bg-slate-200 p-3 rounded-lg cursor-pointer'>
                         <Image src={"https://ik.imagekit.io/rhj1mu8rk/logo.svg"} alt='logo' width={50} height={50} />
-                        <h2 className='flex gap-2 items-center justify-center font-bold text-[17px]'>Team Name <ChevronDown /></h2>
+                        <h2 className='flex gap-2 items-center justify-center font-bold text-[17px]'>{activeTeam?.teamName} <ChevronDown /></h2>
                     </div>
                 </PopoverTrigger>
                 <PopoverContent className='ml-6 p-4 shadow-xl'>
@@ -76,7 +84,8 @@ const SideNavTop = () => {
                     <div>
                         {teamList?.map((item, indx) => (
                             <h2 key={indx + 1}
-                                className='cursor-pointer p-2 hover:bg-blue-500 hover:text-white transition-all rounded-md'
+                                className={`cursor-pointer p-2 ${activeTeam?._id === item?._id && 'bg-teal-500'} hover:bg-blue-500 hover:text-white transition-all rounded-md mb-1`}
+                                onClick={() => setActiveTeam(item)}
                             >
                                 {item.teamName}
                             </h2>
@@ -122,6 +131,11 @@ const SideNavTop = () => {
 
                 </PopoverContent>
             </Popover>
+
+            <Button variant={"outline"} className='w-full justify-start gap-2 font-bold mt-8 bg-gray-100'>
+                <LayoutGrid className='h-5 w-5' /> All files
+            </Button>
+
         </div>
     )
 }
