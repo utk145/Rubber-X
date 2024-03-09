@@ -11,14 +11,14 @@ import { api } from '@/convex/_generated/api';
 import { Button } from '@/components/ui/button';
 
 
-type TeamList = {
+export type TeamList = {
     teamName: string,
     createdBy: string,
     _id: string,
 }
 
 
-const SideNavTop = () => {
+const SideNavTop = ({ setActiveTeamInfo }: any) => {
     // console.log(user);
 
     // Utils
@@ -67,6 +67,12 @@ const SideNavTop = () => {
             router.push(item.path)
         }
     }
+
+
+    useEffect(() => {
+        activeTeam && setActiveTeamInfo(activeTeam);
+    }, [activeTeam])
+
 
     return (
         <div className=''>
