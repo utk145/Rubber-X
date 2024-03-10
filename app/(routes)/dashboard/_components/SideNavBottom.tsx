@@ -7,7 +7,7 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, Di
 import { Input } from '@/components/ui/input'
 
 
-const SideNavBottom = ({ onClickFileCreate }: any) => {
+const SideNavBottom = ({ onClickFileCreate, totalFilesCount }: any) => {
 
   // Utils
   const menuOptions = [
@@ -91,10 +91,10 @@ const SideNavBottom = ({ onClickFileCreate }: any) => {
         </DialogContent>
       </Dialog>
 
-      <Progress value={(3 / 5) * 100} className='h-4 w-full bg-gray-200 rounded-full mt-5 ' />
+      <Progress value={(totalFilesCount / 5) * 100} className='h-4 w-full bg-gray-200 rounded-full mt-5 ' />
 
       <h2 className='text-[12px] mt-3'>
-        <strong>3</strong> out of <strong>5</strong> files used</h2>
+        <strong>{totalFilesCount}</strong> out of <strong>5</strong> files used</h2>
       <h2 className='text-[12px] mt-1'>Upgrade your plan for unlimited access.</h2>
 
 
