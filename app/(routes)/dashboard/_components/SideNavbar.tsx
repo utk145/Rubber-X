@@ -1,11 +1,12 @@
 "use client";
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import SideNavTop, { TeamList } from './SideNavTop';
 import SideNavBottom from './SideNavBottom';
 import { useConvex, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
 import { toast } from 'sonner';
+import { FileListContext } from '@/app/context/FilesListContext';
 
 const SideNavbar = () => {
 
@@ -16,6 +17,7 @@ const SideNavbar = () => {
 
   const [activeTeam, setActiveTeam] = useState<TeamList | any>();
   const [totalFilesCount, setTotalFilesCount] = useState<Number>(0);
+  const { fileList_, setFileList_ } = useContext(FileListContext);
 
   // console.log('activeTeam value from SideNavBar ', activeTeam);
   // console.log("total files count: ", totalFilesCount);
@@ -38,6 +40,7 @@ const SideNavbar = () => {
   async function getTotalFilesCount() {
     const result = await convex.query(api.files.getTotalFilesCount, { teamId: activeTeam?._id });
     console.log("total files", result);
+    setFileList_(result);
     setTotalFilesCount(result?.length);
   }
 
