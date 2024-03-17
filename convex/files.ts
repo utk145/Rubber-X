@@ -26,3 +26,14 @@ export const getTotalFilesCount = query({
         return result;
     },
 })
+
+export const updateDocumentInFile = mutation({
+    args: {
+        _id: v.id("files"),
+        document: v.string()
+    },
+    handler: async (ctx, args) => {
+        const result = await ctx.db.patch(args._id, { document: args.document });
+        return result;
+    },
+});

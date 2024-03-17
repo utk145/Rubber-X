@@ -34,6 +34,9 @@ Good commit practices :-
 - The system should be available and reliable, with minimal downtime.
 - The user interface should be intuitive and user-friendly, requiring minimal training for users to start drawing collaboratively.
 
+### Future Scope Features
+- Auto Save file in Editor.ts after a given time-interval
+- use state management like ContextAPI, Redux-Tookit, Zustand, etc etc etc
 
 ### In Project Resources: 
 
@@ -48,5 +51,5 @@ Good commit practices :-
     6. Wire up the ConvexClientProvider. In app/layout.tsx, wrap the children of the body element with the ConvexClientProvider.
     7. _**NOTE:** It is not like Prisma that whatver changes we do we've to re-deploy it, it is managed by Convex itself_.
 
-
+- EditorJS Docs: https://editorjs.io/base-concepts/ and Plugins:- https://github.com/editor-js/awesome-editorjs
 

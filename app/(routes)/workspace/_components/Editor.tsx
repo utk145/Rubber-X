@@ -1,6 +1,6 @@
 "use client";
 import EditorJS from '@editorjs/editorjs';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 // Ignore the red-lines below; if its still troubling your eyes then add @ts-ignore before each import 
 // @ts-ignore
@@ -12,9 +12,41 @@ import SimpleImage from "@editorjs/simple-image";
 import CodeTool from '@editorjs/code';
 import CodeBox from '@bomdi/codebox';
 import Alert from 'editorjs-alert';
+import { toast } from 'sonner';
+import { useMutation } from 'convex/react';
+import { api } from '@/convex/_generated/api';
+import { useParams } from 'next/navigation';
 
 
-export default function Editor() {
+// https://editorjs.io/saving-data/
+const rawDocument = {
+    "time": 1550476186479,
+    "blocks": [
+        {
+            data: {
+                text: 'Document Name',
+                level: 2,
+            },
+            id: '53478154932154',
+            type: 'header'
+        },
+        {
+            data: {
+                level: 4,
+            },
+            id: '53478w154932154',
+            type: 'header'
+        },
+    ],
+    "version": "2.8.1"
+};
+
+export default function Editor({ onSaveTrigger }: any) {
+    const ref = useRef<EditorJS>();
+    const [document, setDocument] = useState(rawDocument);
+    const updateDocument = useMutation(api.files.updateDocumentInFile);
+    const { fileId }: any = useParams();
+    // console.log(fileId);
 
 
     function initializeEditor() {
@@ -79,14 +111,39 @@ export default function Editor() {
                 },
 
 
-            }
+            },
+            data: document
         });
+
+        ref.current = editor;
     }
 
+    function onSaveDocument() {
+        if (ref.current) {
+            ref.current.save().then((outputData) => {
+                console.log('Article data: ', outputData);
+                updateDocument({
+                    _id: fileId,
+                    document: JSON.stringify(outputData)
+                }).then((resp) => {
+                    console.log("Saved successfully", resp);
+                    toast("File saved successfully");
+                });
+            }).catch((error) => {
+                console.log('Saving failed: ', error);
+                toast("Unable to save file");
+            });
+        }
+    }
 
     useEffect(() => {
         initializeEditor();
     }, []);
+
+    useEffect(() => {
+        console.log("trigger value", onSaveTrigger);
+        onSaveTrigger && onSaveDocument();
+    }, [onSaveTrigger]);
 
 
     return (
