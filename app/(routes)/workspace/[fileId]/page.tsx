@@ -1,10 +1,28 @@
 "use client";
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import WorkSpaceHeader from '../_components/Header'
 import Editor from '../_components/Editor'
+import { useConvex } from 'convex/react';
+import { api } from '@/convex/_generated/api';
+import { FileType } from '../../dashboard/_components/FilesList';
 
-const Workspace = () => {
+const Workspace = ({ params }: any) => {
+
+  const convex = useConvex();
+
   const [triggerSave, setTriggerSave] = useState(false);
+  const [fileData, setFileData] = useState<FileType | any>();
+
+  async function getUpdatedDocumentData() {
+    const result = await convex.query(api.files.getDocumentInfoById, { _id: params.fileId });
+    console.log(result);
+    setFileData(result);
+  }
+
+  useEffect(() => {
+    console.log("Dynamic File Id: ", params.fileId);
+    params.fileId && getUpdatedDocumentData();
+  }, []);
 
   return (
     <div>
@@ -15,7 +33,12 @@ const Workspace = () => {
 
         {/* Document */}
         <div className='h-screen mt-3'>
-          <Editor onSaveTrigger={triggerSave} />
+          {/* Passing fileId as params to Editor because before opening the workspace only I want the updated document to be fetched */}
+          <Editor
+            onSaveTrigger={triggerSave}
+            fileId={params.fileId}
+            fileData={fileData}
+          />
         </div>
 
         {/* Canvas or Whiteboard */}

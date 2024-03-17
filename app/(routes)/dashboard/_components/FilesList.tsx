@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import React, { useContext, useEffect, useState } from 'react'
 import moment from "moment";
 
-type FileType = {
+export type FileType = {
     archive: boolean,
     createdBy: string,
     document: string,

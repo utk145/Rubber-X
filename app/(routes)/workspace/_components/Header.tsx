@@ -10,7 +10,9 @@ export default function WorkSpaceHeader({ onSave }: any) {
     return (
         <div className="p-3 border-b-4 flex justify-between items-center">
             <div className="flex gap-2 items-center">
-                <Image src={"https://ik.imagekit.io/rhj1mu8rk/logo.svg"} alt="logo" width={50} height={50} />
+                <a href="/dashboard">
+                    <Image src={"https://ik.imagekit.io/rhj1mu8rk/logo.svg"} alt="logo" width={50} height={50} />
+                </a>
                 <h2>File Name</h2>
             </div>
             <div className="flex gap-2">

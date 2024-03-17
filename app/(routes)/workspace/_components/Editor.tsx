@@ -15,8 +15,7 @@ import Alert from 'editorjs-alert';
 import { toast } from 'sonner';
 import { useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
-import { useParams } from 'next/navigation';
-
+import { FileType } from '../../dashboard/_components/FilesList';
 
 // https://editorjs.io/saving-data/
 const rawDocument = {
@@ -41,12 +40,11 @@ const rawDocument = {
     "version": "2.8.1"
 };
 
-export default function Editor({ onSaveTrigger }: any) {
+export default function Editor({ onSaveTrigger, fileId, fileData }: { onSaveTrigger: any, fileId: any, fileData: FileType }) {
     const ref = useRef<EditorJS>();
     const [document, setDocument] = useState(rawDocument);
     const updateDocument = useMutation(api.files.updateDocumentInFile);
-    const { fileId }: any = useParams();
-    // console.log(fileId);
+
 
 
     function initializeEditor() {
@@ -112,7 +110,7 @@ export default function Editor({ onSaveTrigger }: any) {
 
 
             },
-            data: document
+            data: fileData ? JSON.parse(fileData.document) : document
         });
 
         ref.current = editor;
@@ -137,8 +135,8 @@ export default function Editor({ onSaveTrigger }: any) {
     }
 
     useEffect(() => {
-        initializeEditor();
-    }, []);
+        fileData && initializeEditor();
+    }, [fileData]);
 
     useEffect(() => {
         console.log("trigger value", onSaveTrigger);
