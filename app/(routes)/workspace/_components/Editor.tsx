@@ -110,7 +110,7 @@ export default function Editor({ onSaveTrigger, fileId, fileData }: { onSaveTrig
 
 
             },
-            data: fileData ? JSON.parse(fileData.document) : document
+            data: fileData.document ? JSON.parse(fileData.document) : document
         });
 
         ref.current = editor;
