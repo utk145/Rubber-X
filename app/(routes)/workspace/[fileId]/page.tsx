@@ -5,6 +5,7 @@ import Editor from '../_components/Editor'
 import { useConvex } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { FileType } from '../../dashboard/_components/FilesList';
+import WhiteBoard from '../_components/WhiteBoard';
 
 const Workspace = ({ params }: any) => {
 
@@ -42,8 +43,8 @@ const Workspace = ({ params }: any) => {
         </div>
 
         {/* Canvas or Whiteboard */}
-        <div className='h-screen bg-red-300'>
-          hey2
+        <div className='h-screen border-l-4'>
+          <WhiteBoard/>
         </div>
 
       </div>

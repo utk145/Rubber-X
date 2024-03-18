@@ -18,21 +18,21 @@ Good commit practices :-
 ---
 
 ### Functional Requirements:
-- User should be able to signup and login
-- Proper protected routes
-- User can create team and files
-- User Can Write on Document and Also Draw on whiteboard on Same Screen 
-- User Can Save and Retrive Document & whiteboard 
-- User Dashboard
-- The system should provide basic drawing tools such as a pen, shapes, and text.
-- Users should be able to export their drawings.
+- User should be able to signup and login ✅
+- Proper protected routes ✅
+- User can create team and files ✅
+- User Can Write on Document and Also Draw on whiteboard on Same Screen . ✅ 
+- User Can Save and Retrive Document ✅ & whiteboard
+- User Dashboard ✅
+- The system should provide basic drawing tools such as a pen, shapes, and text. ✅
+- Users should be able to export their drawings. ✅
 - Safe and scalable DataBase setup
 
 
 ### Non - Functional Requirements:
-- Responsive webapp layout
+- Responsive webapp layout ✅
 - The system should be available and reliable, with minimal downtime.
-- The user interface should be intuitive and user-friendly, requiring minimal training for users to start drawing collaboratively.
+- The user interface should be intuitive and user-friendly, requiring minimal training for users to start drawing collaboratively. ✅
 
 ### Future Scope Features
 - Auto Save file in Editor.ts after a given time-interval
@@ -53,3 +53,4 @@ Good commit practices :-
 
 - EditorJS Docs: https://editorjs.io/base-concepts/ and Plugins:- https://github.com/editor-js/awesome-editorjs
 
+- Excalidraw docs: https://docs.excalidraw.com/docs/@excalidraw/excalidraw/api/children-components 
