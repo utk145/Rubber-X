@@ -1,13 +1,50 @@
 "use client";
 import { Excalidraw, MainMenu, WelcomeScreen } from "@excalidraw/excalidraw";
 import { Github, Twitter } from "lucide-react";
+import { FileType } from "../../dashboard/_components/FilesList";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
-export default function WhiteBoard() {
+export default function WhiteBoard({ onSaveTrigger, fileId, fileData }: { onSaveTrigger: any, fileId: any, fileData: FileType }) {
+
+    // lib functions
+    const updateWhiteboard = useMutation(api.files.updateWhiteboardInFile);
+
+    // states
+    const [whiteBoardData, setWhiteBoardData] = useState<any>();
+    console.log("fileData from whiteboard", fileData);
+
+    function onSaveWhiteboard() {
+        updateWhiteboard({
+            _id: fileId,
+            whiteboard: JSON.stringify(whiteBoardData)
+        }).then((resp) => {
+            console.log("Saved successfully", resp);
+            toast("File saved successfully");
+        }).catch((error) => {
+            console.log('Saving failed: ', error);
+            toast("Unable to save file");
+        });
+    };
+
+    useEffect(() => {
+        onSaveTrigger && onSaveWhiteboard();
+    }, [onSaveTrigger])
+
+
     return (
         <div style={{ height: "100%" }}>
-            <Excalidraw
+            {fileData && <Excalidraw
+                initialData={{
+                    elements: fileData && fileData.whiteboard ? JSON.parse(fileData?.whiteboard) : whiteBoardData
+                }}
                 onChange={
-                    (excalidrawElements, appState, files) => console.log([excalidrawElements, appState, files])
+                    (excalidrawElements, appState, files) => {
+                        console.log([excalidrawElements, appState, files]);
+                        setWhiteBoardData(excalidrawElements);
+                    }
                 }
                 UIOptions={{
                     canvasActions: {
@@ -42,6 +79,7 @@ export default function WhiteBoard() {
                 </WelcomeScreen>
 
             </Excalidraw>
+            }
         </div>
 
     )

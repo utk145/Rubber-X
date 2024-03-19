@@ -44,7 +44,11 @@ const Workspace = ({ params }: any) => {
 
         {/* Canvas or Whiteboard */}
         <div className='h-screen border-l-4'>
-          <WhiteBoard/>
+          <WhiteBoard
+            onSaveTrigger={triggerSave}
+            fileId={params.fileId}
+            fileData={fileData}
+          />
         </div>
 
       </div>
