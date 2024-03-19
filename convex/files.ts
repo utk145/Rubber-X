@@ -60,3 +60,20 @@ export const updateWhiteboardInFile = mutation({
         return result;
     },
 });
+
+
+export const deleteFile = mutation({
+    args: {
+      _id: v.id("files"), // Specify the ID type for the file
+    },
+    handler: async (ctx, args) => {
+      try {
+        // Delete the file from the "files" collection
+        await ctx.db.delete(args._id);
+        return true; // Indicate successful deletion
+      } catch (error) {
+        console.error("Error deleting file:", error);
+        throw error; // Re-throw the error for handling in the calling code
+      }
+    },
+  });

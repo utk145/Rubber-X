@@ -52,10 +52,10 @@ const SideNavTop = ({ setActiveTeamInfo }: any) => {
         const result = await convex.query(api.teams.getTeam, { email: user?.email });
         setTeamList(result);
         setActiveTeam(result[0]);
-        console.log("Teams result", result);
+        // console.log("Teams result", result);
     }; /* We've already once done this call earlier, and a common approach is doing prop-drilling to reduce this api call but by the time the teamList is fetched, #this component is already mounted. Soo the list is not shown. *** BETTER APPROACH FOR FUTURE ***: use state management like ContextAPI, Redux-Tookit, Zustand, etc etc etc...   */
 
-    console.log("team output from sidenav toppp", teamList);
+    // console.log("team output from sidenav toppp", teamList);
 
     useEffect(() => {
         user && getTeamsList();

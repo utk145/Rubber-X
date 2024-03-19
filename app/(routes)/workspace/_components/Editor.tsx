@@ -124,7 +124,7 @@ export default function Editor({ onSaveTrigger, fileId, fileData }: { onSaveTrig
                     _id: fileId,
                     document: JSON.stringify(outputData)
                 }).then((resp) => {
-                    console.log("Saved successfully", resp);
+                    // console.log("Saved successfully", resp);
                     toast("File saved successfully");
                 });
             }).catch((error) => {
@@ -139,7 +139,7 @@ export default function Editor({ onSaveTrigger, fileId, fileData }: { onSaveTrig
     }, [fileData]);
 
     useEffect(() => {
-        console.log("trigger value", onSaveTrigger);
+        // console.log("trigger value", onSaveTrigger);
         onSaveTrigger && onSaveDocument();
     }, [onSaveTrigger]);
 

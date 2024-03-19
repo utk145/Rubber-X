@@ -16,18 +16,18 @@ const Workspace = ({ params }: any) => {
 
   async function getUpdatedDocumentData() {
     const result = await convex.query(api.files.getDocumentInfoById, { _id: params.fileId });
-    console.log(result);
+    // console.log(result);
     setFileData(result);
   }
 
   useEffect(() => {
-    console.log("Dynamic File Id: ", params.fileId);
+    // console.log("Dynamic File Id: ", params.fileId);
     params.fileId && getUpdatedDocumentData();
   }, []);
 
   return (
     <div>
-      <WorkSpaceHeader onSave={() => setTriggerSave(!triggerSave)} />
+      <WorkSpaceHeader onSave={() => setTriggerSave(!triggerSave)} fileData={fileData} />
 
       {/* Layout */}
       <div className='grid grid-cols-1 md:grid-cols-2'>

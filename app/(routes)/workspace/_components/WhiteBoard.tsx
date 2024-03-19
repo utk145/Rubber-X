@@ -14,17 +14,17 @@ export default function WhiteBoard({ onSaveTrigger, fileId, fileData }: { onSave
 
     // states
     const [whiteBoardData, setWhiteBoardData] = useState<any>();
-    console.log("fileData from whiteboard", fileData);
+    // console.log("fileData from whiteboard", fileData);
 
     function onSaveWhiteboard() {
         updateWhiteboard({
             _id: fileId,
             whiteboard: JSON.stringify(whiteBoardData)
         }).then((resp) => {
-            console.log("Saved successfully", resp);
+            // console.log("Saved successfully", resp);
             toast("File saved successfully");
         }).catch((error) => {
-            console.log('Saving failed: ', error);
+            // console.log('Saving failed: ', error);
             toast("Unable to save file");
         });
     };
@@ -42,7 +42,7 @@ export default function WhiteBoard({ onSaveTrigger, fileId, fileData }: { onSave
                 }}
                 onChange={
                     (excalidrawElements, appState, files) => {
-                        console.log([excalidrawElements, appState, files]);
+                        // console.log([excalidrawElements, appState, files]);
                         setWhiteBoardData(excalidrawElements);
                     }
                 }

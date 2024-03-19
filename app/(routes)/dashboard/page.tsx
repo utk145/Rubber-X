@@ -29,7 +29,7 @@ const Dashboard = () => {
         email: user?.email,
         image: user?.picture
       }).then((resp) => {
-        console.log(resp);
+        // console.log(resp);
       }).catch((err) => { alert(err) })
     }
   }

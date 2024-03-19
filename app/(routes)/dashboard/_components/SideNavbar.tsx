@@ -23,7 +23,7 @@ const SideNavbar = () => {
   // console.log("total files count: ", totalFilesCount);
 
   const onClickFileCreate = async (fileName: string) => {
-    console.log(fileName);
+    // console.log(fileName);
     await createNewFile({ fileName: fileName, teamId: activeTeam?._id, createdBy: user?.email, archive: false, document: '', whiteboard: '' })
       .then(resp => {
         if (resp) {
@@ -39,7 +39,7 @@ const SideNavbar = () => {
 
   async function getTotalFilesCount() {
     const result = await convex.query(api.files.getTotalFilesCount, { teamId: activeTeam?._id });
-    console.log("total files", result);
+    // console.log("total files", result);
     setFileList_(result);
     setTotalFilesCount(result?.length);
   }

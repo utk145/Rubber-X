@@ -37,7 +37,7 @@ const Header = () => {
                             </li>
 
                             <li>
-                                <a className="text-white transition hover:text-gray-100/75" href="#"> Projects </a>
+                                <a className="text-white transition hover:text-gray-100/75" href="/dashboard"> Projects </a>
                             </li>
 
 
